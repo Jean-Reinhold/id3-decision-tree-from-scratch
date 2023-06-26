@@ -40,7 +40,7 @@ class DecisionTree:
             else:
                 new_attributes = [attr for attr in attributes if attr != best_attribute]
                 root.children[value] = self.fit(
-                    subset, new_attributes, target_attribute
+                    subset, new_attributes, target
                 )
 
         self.tree = root
