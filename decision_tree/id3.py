@@ -47,25 +47,25 @@ class DecisionTree:
         return root
     
     def choose_best_attribute(
-        self, data: pd.DataFrame, attributes: list[str], target_attribute: str
+        self, data: pd.DataFrame, attributes: list[str], target: str
     ) -> str:
         information_gains = []
         for attribute in attributes:
             information_gains.append(
-                self.calculate_information_gain(data, attribute, target_attribute)
+                self.calculate_information_gain(data, attribute, target)
             )
         return attributes[np.argmax(information_gains)]
 
     def calculate_information_gain(
-        self, data: pd.DataFrame, attribute: str, target_attribute: str
+        self, data: pd.DataFrame, attribute: str, target: str
     ) -> float:
-        total_entropy = self.calculate_entropy(data, target_attribute)
+        total_entropy = self.calculate_entropy(data, target)
         attribute_values = data[attribute].unique()
         weighted_entropy = 0.0
         for value in attribute_values:
             subset = self.get_subset(data, attribute, value)
             weighted_entropy += (len(subset) / len(data)) * self.calculate_entropy(
-                subset, target_attribute
+                subset, target
             )
         information_gain = total_entropy - weighted_entropy
         return information_gain
